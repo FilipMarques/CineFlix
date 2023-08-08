@@ -17,4 +17,7 @@ struct Movie: Codable, Identifiable {
     let id: Int
     let backdrop_path: String
     let vote_average: Double
+    let overview: String
+    let poster_path: String
+    let release_date: String
 }

@@ -28,6 +28,8 @@ struct MovieRow: View {
                     .font(.title)
                     .bold()
                     .lineLimit(3)
+                    .foregroundColor(.white)
+                    .shadow(color: Color.black.opacity(0.7), radius: 1, x: 0, y: 1)
 
                 HStack {
                     Image(systemName: "star.fill")
@@ -35,6 +37,7 @@ struct MovieRow: View {
                     Text(String(format: "%.2f", movie.vote_average))
                         .foregroundColor(.white)
                         .font(.subheadline)
+                        .shadow(color: Color.black.opacity(0.7), radius: 1, x: 0, y: 1)
                 }
             }
             .padding()

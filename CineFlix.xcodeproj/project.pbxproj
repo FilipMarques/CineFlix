@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F4F28892A7BF57100A53799 /* CineFlixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F28882A7BF57100A53799 /* CineFlixApp.swift */; };
-		7F4F288B2A7BF57100A53799 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F288A2A7BF57100A53799 /* ContentView.swift */; };
+		7F4F288B2A7BF57100A53799 /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F288A2A7BF57100A53799 /* MovieList.swift */; };
 		7F4F288D2A7BF57500A53799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F4F288C2A7BF57500A53799 /* Assets.xcassets */; };
 		7F4F28902A7BF57500A53799 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F4F288F2A7BF57500A53799 /* Preview Assets.xcassets */; };
 		7F4F289A2A7BF57500A53799 /* CineFlixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F28992A7BF57500A53799 /* CineFlixTests.swift */; };
@@ -18,6 +18,10 @@
 		7FAE57792A7D3230006772C5 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57782A7D3230006772C5 /* MovieModel.swift */; };
 		7FAE577C2A7D6BBB006772C5 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7FAE577B2A7D6BBB006772C5 /* URLImage */; };
 		7FAE577E2A7D6FB5006772C5 /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */; };
+		7FAE57802A827FA5006772C5 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE577F2A827FA5006772C5 /* MovieDetail.swift */; };
+		7FAE57882A82A6A6006772C5 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57872A82A6A6006772C5 /* MovieListViewModel.swift */; };
+		7FAE578A2A82A6BD006772C5 /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57892A82A6BD006772C5 /* MovieDetailViewModel.swift */; };
+		7FAE578D2A82B31B006772C5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7FAE578C2A82B31B006772C5 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +44,7 @@
 /* Begin PBXFileReference section */
 		7F4F28852A7BF57100A53799 /* CineFlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CineFlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4F28882A7BF57100A53799 /* CineFlixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineFlixApp.swift; sourceTree = "<group>"; };
-		7F4F288A2A7BF57100A53799 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7F4F288A2A7BF57100A53799 /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
 		7F4F288C2A7BF57500A53799 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F4F288F2A7BF57500A53799 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7F4F28952A7BF57500A53799 /* CineFlixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CineFlixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +55,9 @@
 		7FAE57762A7D2EE4006772C5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7FAE57782A7D3230006772C5 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
+		7FAE577F2A827FA5006772C5 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		7FAE57872A82A6A6006772C5 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
+		7FAE57892A82A6BD006772C5 /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FAE577C2A7D6BBB006772C5 /* URLImage in Frameworks */,
+				7FAE578D2A82B31B006772C5 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,11 +110,11 @@
 		7F4F28872A7BF57100A53799 /* CineFlix */ = {
 			isa = PBXGroup;
 			children = (
+				7FAE57832A828E43006772C5 /* Views */,
+				7FAE57822A828E35006772C5 /* View Models */,
+				7FAE57812A828E29006772C5 /* Models */,
+				7FAE57842A828E51006772C5 /* Helpers */,
 				7F4F28882A7BF57100A53799 /* CineFlixApp.swift */,
-				7F4F288A2A7BF57100A53799 /* ContentView.swift */,
-				7FAE57762A7D2EE4006772C5 /* NetworkManager.swift */,
-				7FAE57782A7D3230006772C5 /* MovieModel.swift */,
-				7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */,
 				7F4F288C2A7BF57500A53799 /* Assets.xcassets */,
 				7F4F288E2A7BF57500A53799 /* Preview Content */,
 			);
@@ -138,6 +146,57 @@
 			path = CineFlixUITests;
 			sourceTree = "<group>";
 		};
+		7FAE57812A828E29006772C5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE57782A7D3230006772C5 /* MovieModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7FAE57822A828E35006772C5 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE57872A82A6A6006772C5 /* MovieListViewModel.swift */,
+				7FAE57892A82A6BD006772C5 /* MovieDetailViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		7FAE57832A828E43006772C5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE57852A828E9F006772C5 /* MovieListView */,
+				7FAE57862A828EBA006772C5 /* MovieDetailView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7FAE57842A828E51006772C5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE57762A7D2EE4006772C5 /* NetworkManager.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		7FAE57852A828E9F006772C5 /* MovieListView */ = {
+			isa = PBXGroup;
+			children = (
+				7F4F288A2A7BF57100A53799 /* MovieList.swift */,
+				7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */,
+			);
+			path = MovieListView;
+			sourceTree = "<group>";
+		};
+		7FAE57862A828EBA006772C5 /* MovieDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE577F2A827FA5006772C5 /* MovieDetail.swift */,
+			);
+			path = MovieDetailView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -156,6 +215,7 @@
 			name = CineFlix;
 			packageProductDependencies = (
 				7FAE577B2A7D6BBB006772C5 /* URLImage */,
+				7FAE578C2A82B31B006772C5 /* Alamofire */,
 			);
 			productName = CineFlix;
 			productReference = 7F4F28852A7BF57100A53799 /* CineFlix.app */;
@@ -231,6 +291,7 @@
 			mainGroup = 7F4F287C2A7BF57100A53799;
 			packageReferences = (
 				7FAE577A2A7D6BBB006772C5 /* XCRemoteSwiftPackageReference "url-image" */,
+				7FAE578B2A82B31B006772C5 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 7F4F28862A7BF57100A53799 /* Products */;
 			projectDirPath = "";
@@ -277,7 +338,10 @@
 				7FAE57792A7D3230006772C5 /* MovieModel.swift in Sources */,
 				7FAE577E2A7D6FB5006772C5 /* MovieRow.swift in Sources */,
 				7FAE57772A7D2EE4006772C5 /* NetworkManager.swift in Sources */,
-				7F4F288B2A7BF57100A53799 /* ContentView.swift in Sources */,
+				7FAE57882A82A6A6006772C5 /* MovieListViewModel.swift in Sources */,
+				7FAE578A2A82A6BD006772C5 /* MovieDetailViewModel.swift in Sources */,
+				7FAE57802A827FA5006772C5 /* MovieDetail.swift in Sources */,
+				7F4F288B2A7BF57100A53799 /* MovieList.swift in Sources */,
 				7F4F28892A7BF57100A53799 /* CineFlixApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +677,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		7FAE578B2A82B31B006772C5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -620,6 +692,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7FAE577A2A7D6BBB006772C5 /* XCRemoteSwiftPackageReference "url-image" */;
 			productName = URLImage;
+		};
+		7FAE578C2A82B31B006772C5 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FAE578B2A82B31B006772C5 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
