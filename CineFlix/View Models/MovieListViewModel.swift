@@ -5,17 +5,21 @@
 //  Created by Filipe Camargo Marques on 08/08/23.
 //
 
-import Foundation
+import SwiftUI
 
 class MovieListViewModel: ObservableObject {
 
     @Published var currentPage = 1
     @Published var allMovies: [Movie] = []
+    private var isFirstTime = true
 
     private var networkManager = NetworkManager()
 
     func loadData() {
-        fetchData(currentPage)
+        if self.isFirstTime {
+            fetchData(1)
+            self.isFirstTime = false
+        }
     }
 
     func itemDidAppear(_ movie: Movie) {
@@ -28,6 +32,7 @@ class MovieListViewModel: ObservableObject {
         networkManager.fetchData(page: currentPage) { [weak self] fetchedMovies in
             self?.allMovies.append(contentsOf: fetchedMovies)
             self?.currentPage += 1
+            print(currentPage)
         }
     }
 

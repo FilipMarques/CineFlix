@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		7F4F28892A7BF57100A53799 /* CineFlixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F28882A7BF57100A53799 /* CineFlixApp.swift */; };
-		7F4F288B2A7BF57100A53799 /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F288A2A7BF57100A53799 /* MovieList.swift */; };
+		7F4F288B2A7BF57100A53799 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F288A2A7BF57100A53799 /* MovieListView.swift */; };
 		7F4F288D2A7BF57500A53799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F4F288C2A7BF57500A53799 /* Assets.xcassets */; };
 		7F4F28902A7BF57500A53799 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F4F288F2A7BF57500A53799 /* Preview Assets.xcassets */; };
 		7F4F289A2A7BF57500A53799 /* CineFlixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F28992A7BF57500A53799 /* CineFlixTests.swift */; };
 		7F4F28A42A7BF57500A53799 /* CineFlixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F28A32A7BF57500A53799 /* CineFlixUITests.swift */; };
 		7F4F28A62A7BF57500A53799 /* CineFlixUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F28A52A7BF57500A53799 /* CineFlixUITestsLaunchTests.swift */; };
 		7FAE57772A7D2EE4006772C5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57762A7D2EE4006772C5 /* NetworkManager.swift */; };
-		7FAE57792A7D3230006772C5 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57782A7D3230006772C5 /* MovieModel.swift */; };
+		7FAE57792A7D3230006772C5 /* PageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57782A7D3230006772C5 /* PageList.swift */; };
 		7FAE577C2A7D6BBB006772C5 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7FAE577B2A7D6BBB006772C5 /* URLImage */; };
 		7FAE577E2A7D6FB5006772C5 /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */; };
-		7FAE57802A827FA5006772C5 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE577F2A827FA5006772C5 /* MovieDetail.swift */; };
+		7FAE57802A827FA5006772C5 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE577F2A827FA5006772C5 /* MovieDetailView.swift */; };
 		7FAE57882A82A6A6006772C5 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57872A82A6A6006772C5 /* MovieListViewModel.swift */; };
 		7FAE578A2A82A6BD006772C5 /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE57892A82A6BD006772C5 /* MovieDetailViewModel.swift */; };
 		7FAE578D2A82B31B006772C5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7FAE578C2A82B31B006772C5 /* Alamofire */; };
@@ -44,7 +44,7 @@
 /* Begin PBXFileReference section */
 		7F4F28852A7BF57100A53799 /* CineFlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CineFlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4F28882A7BF57100A53799 /* CineFlixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineFlixApp.swift; sourceTree = "<group>"; };
-		7F4F288A2A7BF57100A53799 /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
+		7F4F288A2A7BF57100A53799 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		7F4F288C2A7BF57500A53799 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F4F288F2A7BF57500A53799 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7F4F28952A7BF57500A53799 /* CineFlixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CineFlixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,9 +53,9 @@
 		7F4F28A32A7BF57500A53799 /* CineFlixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineFlixUITests.swift; sourceTree = "<group>"; };
 		7F4F28A52A7BF57500A53799 /* CineFlixUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CineFlixUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7FAE57762A7D2EE4006772C5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		7FAE57782A7D3230006772C5 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		7FAE57782A7D3230006772C5 /* PageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageList.swift; sourceTree = "<group>"; };
 		7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
-		7FAE577F2A827FA5006772C5 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		7FAE577F2A827FA5006772C5 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		7FAE57872A82A6A6006772C5 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		7FAE57892A82A6BD006772C5 /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,7 +149,7 @@
 		7FAE57812A828E29006772C5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7FAE57782A7D3230006772C5 /* MovieModel.swift */,
+				7FAE57782A7D3230006772C5 /* PageList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -183,7 +183,7 @@
 		7FAE57852A828E9F006772C5 /* MovieListView */ = {
 			isa = PBXGroup;
 			children = (
-				7F4F288A2A7BF57100A53799 /* MovieList.swift */,
+				7F4F288A2A7BF57100A53799 /* MovieListView.swift */,
 				7FAE577D2A7D6FB5006772C5 /* MovieRow.swift */,
 			);
 			path = MovieListView;
@@ -192,7 +192,7 @@
 		7FAE57862A828EBA006772C5 /* MovieDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				7FAE577F2A827FA5006772C5 /* MovieDetail.swift */,
+				7FAE577F2A827FA5006772C5 /* MovieDetailView.swift */,
 			);
 			path = MovieDetailView;
 			sourceTree = "<group>";
@@ -335,13 +335,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FAE57792A7D3230006772C5 /* MovieModel.swift in Sources */,
+				7FAE57792A7D3230006772C5 /* PageList.swift in Sources */,
 				7FAE577E2A7D6FB5006772C5 /* MovieRow.swift in Sources */,
 				7FAE57772A7D2EE4006772C5 /* NetworkManager.swift in Sources */,
 				7FAE57882A82A6A6006772C5 /* MovieListViewModel.swift in Sources */,
 				7FAE578A2A82A6BD006772C5 /* MovieDetailViewModel.swift in Sources */,
-				7FAE57802A827FA5006772C5 /* MovieDetail.swift in Sources */,
-				7F4F288B2A7BF57100A53799 /* MovieList.swift in Sources */,
+				7FAE57802A827FA5006772C5 /* MovieDetailView.swift in Sources */,
+				7F4F288B2A7BF57100A53799 /* MovieListView.swift in Sources */,
 				7F4F28892A7BF57100A53799 /* CineFlixApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

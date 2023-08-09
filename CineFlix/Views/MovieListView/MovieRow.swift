@@ -13,7 +13,7 @@ struct MovieRow: View {
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            URLImage(URL(string: "https://image.tmdb.org/t/p/w500/\(movie.backdrop_path)")!) { image in
+            URLImage(URL(string: "https://image.tmdb.org/t/p/w500/\(movie.backdropPath)")!) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -34,7 +34,7 @@ struct MovieRow: View {
                 HStack {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
-                    Text(String(format: "%.2f", movie.vote_average))
+                    Text(String(format: "%.2f", movie.voteAverage))
                         .foregroundColor(.white)
                         .font(.subheadline)
                         .shadow(color: Color.black.opacity(0.7), radius: 1, x: 0, y: 1)

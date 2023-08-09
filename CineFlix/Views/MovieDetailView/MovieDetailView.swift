@@ -8,40 +8,36 @@
 import SwiftUI
 import URLImage
 
-struct MovieDetail: View {
-    let overview: String
-    let poster_path: String
-    let release_date: String
+struct MovieDetailView: View {
 
-    var formattedReleaseDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let date = dateFormatter.date(from: release_date) {
-            dateFormatter.dateFormat = "dd/MM/yyyy"
-            return dateFormatter.string(from: date)
-        } else {
-            return release_date
-        }
+    @StateObject private var viewModel: MovieDetailViewModel
+
+    init(overview: String, posterPath: String, releaseDate: String) {
+        _viewModel = .init(wrappedValue: MovieDetailViewModel(
+            overview: overview,
+            posterPath: posterPath,
+            releaseDate: releaseDate
+        ))
     }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                URLImage(URL(string: "https://image.tmdb.org/t/p/w500/\(poster_path)")!) { image in
+                URLImage(URL(string: "https://image.tmdb.org/t/p/w500/\(viewModel.posterPath)")!) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
                 .frame(maxWidth: .infinity)
 
-                Text("Data de lançamento: \(formattedReleaseDate)")
+                Text("Data de lançamento: \(viewModel.formattedReleaseDate)")
                     .font(.subheadline)
                     .foregroundColor(.gray)
 
                 Text("Visão Geral")
                     .font(.headline)
 
-                Text(overview)
+                Text(viewModel.overview)
                     .font(.body)
                     .multilineTextAlignment(.leading)
                     .lineSpacing(8)

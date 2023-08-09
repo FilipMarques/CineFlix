@@ -11,7 +11,9 @@ import SwiftUI
 struct CineFlixApp: App {
     var body: some Scene {
         WindowGroup {
-            MovieList()
+            NavigationView {
+                MovieListView()
+            }
         }
     }
 }
