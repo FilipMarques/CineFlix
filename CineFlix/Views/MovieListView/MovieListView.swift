@@ -28,6 +28,6 @@ struct MovieListView: View {
         .onAppear {
             viewModel.loadData()
         }
-        
+
     }
 }

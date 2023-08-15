@@ -12,7 +12,7 @@ struct CineFlixApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MovieListView()
+                MovieWelcomeView()
             }
         }
     }

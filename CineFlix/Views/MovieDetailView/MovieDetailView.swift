@@ -47,5 +47,9 @@ struct MovieDetailView: View {
             .padding()
             .navigationBarTitle("Informações do Filme", displayMode: .inline)
         }
+        .onAppear {
+            viewModel.overview
+        }
     }
+
 }

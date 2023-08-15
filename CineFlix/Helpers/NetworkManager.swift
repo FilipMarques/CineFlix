@@ -11,11 +11,110 @@ import Alamofire
 enum APIConstants {
     static let apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZGIwMmZjNzUyNDc1MjhlYjlkMmU0Y2NjN2RhNTkzZCIsInN1YiI6IjY0MmIyNzc1YmYzMWYyMDBmMmU5YmMxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w_GJ_OURigsQuMKhxVSIhZJnUzpk37oxbVbnDwKr7i4"
 
-    static let baseUrl = "https://api.themoviedb.org/3"
+    static let baseUrlV3 = "https://api.themoviedb.org/3"
+
+    static let baseUrlV4 = "https://api.themoviedb.org/4"
 
 }
 
+struct AccessTokenRequest: Encodable {
+    let requestToken: String
+
+    enum CodingKeys: String, CodingKey {
+        case requestToken = "request_token"
+    }
+}
+
 class NetworkManager {
+
+    func fetchRequestToken(completion: @escaping (RequestTokenResponse) -> Void) {
+        let endpoint = "/auth/request_token"
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        let bodyParameters: [String: String] = [
+            "redirect_to": "cineflix://authentication"
+        ]
+
+        AF.request(APIConstants.baseUrlV4 + endpoint,
+                   method: .post,
+                   parameters: bodyParameters,
+                   encoder: JSONParameterEncoder.default,
+                   headers: headers)
+        .validate()
+        .responseDecodable(of: RequestTokenResponse.self) { response in
+            switch response.result {
+            case .success(let requestTokenResponse):
+                completion(requestTokenResponse)
+            case .failure(let error):
+                print(error)
+
+            }
+        }
+
+    }
+
+    func fetchAccessToken(requestToken: String, completion: @escaping (AccessTokenResponse) -> Void) {
+        let endpoint = "/auth/access_token"
+
+        let accessTokenRequest = AccessTokenRequest(requestToken: requestToken)
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        AF.request(APIConstants.baseUrlV4 + endpoint,
+                   method: .post,
+                   parameters: accessTokenRequest,
+                   encoder: JSONParameterEncoder.default,
+                   headers: headers) { request in
+            request.httpBody = try? JSONEncoder().encode(accessTokenRequest)
+        }
+                   .validate()
+                   .responseDecodable(of: AccessTokenResponse.self) { response in
+                       switch response.result {
+                       case .success(let accessTokenResponse):
+                           print("\(accessTokenResponse)")
+                           completion(accessTokenResponse)
+                           self.fetchSessionIdV3(accessToken: accessTokenResponse.accessToken)
+                       case .failure(let error):
+                           print(error)
+                       }
+                   }
+    }
+
+    func fetchSessionIdV3(accessToken: String) {
+        let endpoint = "/authentication/session/convert/4"
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        let bodyParameters: [String: String] = [
+            "access_token": accessToken
+        ]
+
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   method: .post,
+                   parameters: bodyParameters,
+                   encoder: JSONParameterEncoder.default,
+                   headers: headers
+        )
+        .validate()
+        .responseDecodable(of: SessionIdResponse.self) { response in
+            switch response.result {
+            case .success(let sessionIdResponse):
+                print("\(sessionIdResponse.success)")
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
 
     func fetchData(page: Int, completion: @escaping ([Movie]) -> Void) {
         let endpoint = "/discover/movie"
@@ -28,7 +127,7 @@ class NetworkManager {
             "api_key": APIConstants.apiKey
         ]
 
-        AF.request(APIConstants.baseUrl + endpoint, parameters: parameters, headers: HTTPHeaders(["Authorization": "Bearer \(APIConstants.apiKey)"]))
+        AF.request(APIConstants.baseUrlV3 + endpoint, parameters: parameters, headers: HTTPHeaders(["Authorization": "Bearer \(APIConstants.apiKey)"]))
             .validate()
             .responseDecodable(of: PageList<Movie>.self) { response in
                 switch response.result {
