@@ -12,20 +12,24 @@ class MovieAuthenticationViewModel: ObservableObject {
     @Published var requestToken: String = ""
 
     private var networkManager = NetworkManager()
+    private let storageManager = StorageManager()
 
     func fetchRequestToken(completion: @escaping (Bool) -> Void) {
-        networkManager.fetchRequestToken { [weak self] response in
-            DispatchQueue.main.async  {
-                self?.requestToken = response.requestToken
-                completion(true)
+        if requestToken.isEmpty {
+            networkManager.fetchRequestToken { [weak self] response in
+                DispatchQueue.main.async  {
+                    self?.requestToken = response.requestToken
+                    completion(true)
+                }
             }
         }
     }
-
-    func fetchAccessToken(_ token: String, completion: @escaping (Bool) -> Void) {
+    
+    func fetchAccessToken(_ token: String) {
         networkManager.fetchAccessToken(requestToken: token) { response in
             DispatchQueue.main.async {
-                completion(true)
+                self.storageManager.setAccessToken(accessToken: response.accessToken)
+                AuthenticationManager.shared.refresh()
             }
         }
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftUI
 
 enum APIConstants {
     static let apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZGIwMmZjNzUyNDc1MjhlYjlkMmU0Y2NjN2RhNTkzZCIsInN1YiI6IjY0MmIyNzc1YmYzMWYyMDBmMmU5YmMxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w_GJ_OURigsQuMKhxVSIhZJnUzpk37oxbVbnDwKr7i4"
@@ -15,14 +16,6 @@ enum APIConstants {
 
     static let baseUrlV4 = "https://api.themoviedb.org/4"
 
-}
-
-struct AccessTokenRequest: Encodable {
-    let requestToken: String
-
-    enum CodingKeys: String, CodingKey {
-        case requestToken = "request_token"
-    }
 }
 
 class NetworkManager {
@@ -135,6 +128,33 @@ class NetworkManager {
                     completion(moviesResponse.results)
                 case .failure(let error):
                     print("Erro ao decodar \(error.localizedDescription)")
+                }
+            }
+    }
+
+    func fetchSearchResults(query: String, page: Int, completion: @escaping (SearchCollection) -> ()) {
+        let endpoint = "/search/collection"
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+        
+        let parameters: [String: Any] = [
+            "query": query,
+            "include_adult": true,
+            "language": "pt-BR",
+            "page": page
+        ]
+
+        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
+            .validate()
+            .responseDecodable(of: SearchCollection.self) { response in
+                switch response.result {
+                case .success(let searchBarResponse):
+                    completion(searchBarResponse)
+                case .failure(let error):
+                    print("\(error)")
                 }
             }
     }

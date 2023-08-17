@@ -9,30 +9,19 @@ import SwiftUI
 
 struct MovieWelcomeView: View {
     @StateObject private var viewModel = MovieAuthenticationViewModel()
-    @State private var urlToOpen: URL?
-    @State private var showTabBar = false
     @Environment(\.openURL) var openURL
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                backgroundImage
-                welcomeContent
-            }
-            .navigationBarHidden(true)
+        ZStack {
+            backgroundImage
+            welcomeContent
         }
+        .navigationBarHidden(true)
         .onOpenURL { url in
-            urlToOpen = url
-            viewModel.fetchAccessToken(viewModel.requestToken) { success in
-                if success {
-                    showTabBar = true
-                }
-            }
-        }
-        .fullScreenCover(isPresented: $showTabBar) {
-            MovieTabbarView()
+            viewModel.fetchAccessToken(viewModel.requestToken)
         }
     }
+
 
     private var backgroundImage: some View {
         Image("Movie")
@@ -75,5 +64,5 @@ struct MovieWelcomeView: View {
             .padding(.horizontal, 20)
         }
     }
-    
+
 }

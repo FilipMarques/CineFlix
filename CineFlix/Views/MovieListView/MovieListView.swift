@@ -23,7 +23,6 @@ struct MovieListView: View {
                     }
             }
         }
-        .frame(width: UIScreen.main.bounds.width)
         .navigationTitle("Filmes")
         .onAppear {
             viewModel.loadData()

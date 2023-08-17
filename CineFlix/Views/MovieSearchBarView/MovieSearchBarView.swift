@@ -8,8 +8,29 @@
 import SwiftUI
 
 struct MovieSearchBarView: View {
+    
+    @StateObject private var viewModel = MovieSearchBarViewModel()
+    @State private var searchText = ""
+
+    var filteredItems: [String] {
+        if !searchText.isEmpty {
+            let movieNames = viewModel.allSearchMovies.map { $0.name }
+            return movieNames.filter { $0.localizedCaseInsensitiveContains(searchText) }
+        } else {
+            return []
+        }
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack {
+                ForEach(viewModel.allSearchMovies) { response in
+                    Text("Item \(response.name)")
+                        .font(.title)
+                        .padding()
+                }
+            }
+        }
     }
 }
 

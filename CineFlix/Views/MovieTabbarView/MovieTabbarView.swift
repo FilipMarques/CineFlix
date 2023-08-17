@@ -10,11 +10,13 @@ import SwiftUI
 struct MovieTabbarView: View {
     var body: some View {
         TabView {
-            MovieListView()
-                .tabItem {
-                    Image(systemName: "1.circle")
-                    Text("Aba 1")
-                }
+            NavigationView {
+                MovieListView()
+            }
+            .tabItem {
+                Image(systemName: "1.circle")
+                Text("Aba 1")
+            }
 
             Text("Segunda Aba")
                 .tabItem {
@@ -22,11 +24,13 @@ struct MovieTabbarView: View {
                     Text("Aba 2")
                 }
 
-            Text("Terceira Aba")
-                .tabItem {
-                    Image(systemName: "3.circle")
-                    Text("Aba 3")
-                }
+            NavigationView {
+                MovieSearchBarView()
+            }
+            .tabItem {
+                Image(systemName: "3.circle")
+                Text("Aba 3")
+            }
             Text("Quarta Aba")
                 .tabItem {
                     Image(systemName: "4.circle")

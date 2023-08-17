@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct AccessTokenRequest: Encodable {
+    let requestToken: String
+
+    enum CodingKeys: String, CodingKey {
+        case requestToken = "request_token"
+    }
+}
