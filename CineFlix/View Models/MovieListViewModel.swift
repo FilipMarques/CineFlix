@@ -32,7 +32,6 @@ class MovieListViewModel: ObservableObject {
         networkManager.fetchData(page: currentPage) { [weak self] fetchedMovies in
             self?.allMovies.append(contentsOf: fetchedMovies)
             self?.currentPage += 1
-            print(currentPage)
         }
     }
 

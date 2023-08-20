@@ -14,13 +14,22 @@ class MovieSearchBarViewModel: ObservableObject {
 
     private var networkManager = NetworkManager()
 
-    init() {
-        search(query: "batman")
+    func itemDidAppear(_ movie: SearchBarResponse, query: String) {
+        if movie.title == allSearchMovies.last?.title {
+            currentPage += 1
+            search(query, currentPage)
+        }
     }
 
-    func search(query: String) {
-        networkManager.fetchSearchResults(query: query, page: 1) { response in
-            self.allSearchMovies = response.results
+    func newSearchOnTextChange(_ query: String) {
+        allSearchMovies = []
+        currentPage = 1
+        search(query, currentPage)
+    }
+
+    private func search(_ query: String, _ currentPage: Int) {
+        networkManager.fetchSearchResults(query: query, page: currentPage) { response in
+            self.allSearchMovies.append(contentsOf: response.results)
         }
     }
 }

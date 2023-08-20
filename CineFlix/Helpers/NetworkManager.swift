@@ -133,7 +133,7 @@ class NetworkManager {
     }
 
     func fetchSearchResults(query: String, page: Int, completion: @escaping (SearchCollection) -> ()) {
-        let endpoint = "/search/collection"
+        let endpoint = "/search/movie"
 
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(APIConstants.apiKey)",
