@@ -14,7 +14,7 @@ class MovieSearchBarViewModel: ObservableObject {
 
     private var networkManager = NetworkManager()
 
-    func itemDidAppear(_ movie: SearchBarResponse, query: String) {
+    func paginateIfNeeded(_ movie: SearchBarResponse, query: String) {
         if movie.title == allSearchMovies.last?.title {
             currentPage += 1
             search(query, currentPage)

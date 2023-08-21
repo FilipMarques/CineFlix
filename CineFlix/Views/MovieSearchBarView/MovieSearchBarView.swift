@@ -13,15 +13,6 @@ struct MovieSearchBarView: View {
     @StateObject private var viewModel = MovieSearchBarViewModel()
     @State private var searchText = ""
 
-    var filteredItems: [SearchBarResponse] {
-        if !searchText.isEmpty {
-            let movieNames = viewModel.allSearchMovies
-            return movieNames
-        } else {
-            return []
-        }
-    }
-
     var body: some View {
         VStack {
             VStack {
@@ -49,43 +40,45 @@ struct MovieSearchBarView: View {
             ScrollView {
                 LazyVStack(spacing: 16) {
                     ForEach(viewModel.allSearchMovies, id: \.id) { movie in
-                        HStack(spacing: 16) {
-                            URLImage(
-                                URL(string: "https://image.tmdb.org/t/p/w500/\(movie.posterPath ?? "")")!
-                            ) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 80, height: 120)
-                                    .background(Color(.systemGray6))
-                                    .cornerRadius(10)
+                        NavigationLink(destination: MovieSearchBarDetailView(movieId: movie.id)) {
+                            HStack(spacing: 16) {
+                                URLImage(
+                                    URL(string: "https://image.tmdb.org/t/p/w500/\(movie.posterPath ?? "")")!
+                                ) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 80, height: 120)
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(10)
+                                }
+
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(movie.title)
+                                        .font(.headline)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(2)
+                                        .padding(.bottom, 4)
+                                        .foregroundColor(.black)
+
+                                    Text(String(format: "Nota: %.2f", movie.voteAverage))
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+
+                                    Text("Data de Estreia: \(movie.releaseDate)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
                             }
-
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(movie.title)
-                                    .font(.headline)
-                                    .multilineTextAlignment(.leading)
-                                    .lineLimit(2)
-                                    .padding(.bottom, 4)
-
-                                Text(String(format: "Nota: %.2f", movie.voteAverage))
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-
-                                Text("Data de Estreia: \(movie.releaseDate)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                            .padding(.horizontal, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .onAppear {
+                                viewModel.paginateIfNeeded(movie, query: searchText)
                             }
-                        }
-                        .padding(.horizontal, 20)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .onAppear {
-                            viewModel.itemDidAppear(movie, query: searchText)
                         }
                     }
                 }
             }
-
 
         }
     }

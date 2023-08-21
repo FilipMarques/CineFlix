@@ -158,5 +158,30 @@ class NetworkManager {
                 }
             }
     }
+
+    func fetchMovieDetails(_ movieId: Int, completion: @escaping (MovieDetailsResponse) -> ()) {
+        let endpoint = "/movie/\(movieId)"
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        let parameters: [String: Any] = [
+            "language": "pt-BR",
+        ]
+
+        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
+            .validate()
+            .responseDecodable(of: MovieDetailsResponse.self) { response in
+                switch response.result {
+                case .success(let movieDetailsResponse):
+                    completion(movieDetailsResponse)
+                case.failure(let error):
+                    print("\(error)")
+                }
+            }
+    }
+
 }
 
