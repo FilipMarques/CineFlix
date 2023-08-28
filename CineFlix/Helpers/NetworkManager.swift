@@ -68,7 +68,8 @@ class NetworkManager {
             request.httpBody = try? JSONEncoder().encode(accessTokenRequest)
         }
                    .validate()
-                   .responseDecodable(of: AccessTokenResponse.self) { response in
+                   .responseDecodable(of: AccessTokenResponse.self) { [weak self] response in
+                       guard let self = self else { return }
                        switch response.result {
                        case .success(let accessTokenResponse):
                            print("\(accessTokenResponse)")
@@ -149,7 +150,8 @@ class NetworkManager {
 
         AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
             .validate()
-            .responseDecodable(of: SearchCollection.self) { response in
+            .responseDecodable(of: SearchCollection.self,
+                               decoder: JSONDecoder.default) { response in
                 switch response.result {
                 case .success(let searchBarResponse):
                     completion(searchBarResponse)
@@ -161,6 +163,7 @@ class NetworkManager {
 
     func fetchMovieDetails(_ movieId: Int, completion: @escaping (MovieDetailsResponse) -> ()) {
         let endpoint = "/movie/\(movieId)"
+        print("\(movieId)")
 
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(APIConstants.apiKey)",

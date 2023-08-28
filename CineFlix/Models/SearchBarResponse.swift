@@ -16,11 +16,28 @@ struct SearchBarResponse: Identifiable, Codable {
     let overview: String
     let popularity: Double
     let posterPath: String?
-    let releaseDate: String
+    let releaseDate: Date?
     let title: String
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.adult = try container.decode(Bool.self, forKey: .adult)
+        self.backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.originalLanguage = try container.decode(String.self, forKey: .originalLanguage)
+        self.originalTitle = try container.decode(String.self, forKey: .originalTitle)
+        self.overview = try container.decode(String.self, forKey: .overview)
+        self.popularity = try container.decode(Double.self, forKey: .popularity)
+        self.posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
+        self.releaseDate = try? container.decodeIfPresent(Date.self, forKey: .releaseDate)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.video = try container.decode(Bool.self, forKey: .video)
+        self.voteAverage = try container.decode(Double.self, forKey: .voteAverage)
+        self.voteCount = try container.decode(Int.self, forKey: .voteCount)
+    }
 
     enum CodingKeys: String, CodingKey {
         case adult

@@ -23,19 +23,20 @@ struct CineFlixApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                if checkToken() {
-                    MovieTabbarView()
-                } else {
-                    MovieWelcomeView()
-                }
-            }
-            .onReceive(AuthenticationManager.shared.publisher()) {
-                authenticationSeed = UUID()
-            }
-            .onAppear {
-                storageManager.setAccessToken(accessToken: nil)
-            }
+            MovieTabbarView()
+//            NavigationView {
+//                if checkToken() {
+//                    MovieTabbarView()
+//                } else {
+//                    MovieWelcomeView()
+//                }
+//            }
+//            .onReceive(AuthenticationManager.shared.publisher()) {
+//                authenticationSeed = UUID()
+//            }
+//            .onAppear {
+//                storageManager.setAccessToken(accessToken: nil)
+//            }
         }
     }
 }

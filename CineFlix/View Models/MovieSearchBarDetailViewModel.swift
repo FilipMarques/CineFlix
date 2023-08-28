@@ -18,23 +18,14 @@ class MovieSearchBarDetailViewModel: ObservableObject {
 
     init(movieId: Int) {
         self.movieId = movieId
-        fetchMovieDetails(for: movieId)
+        fetchMovieDetails()
     }
 
-    func fetchMovieDetails(for movieId: Int) {
-        networkManager.fetchMovieDetails(movieId) { response in
+    func fetchMovieDetails() {
+        networkManager.fetchMovieDetails(movieId) { [weak self] response in
+            guard let self else { return }
             self.movieDetailsResponse = response
         }
     }
 
-    private func formatDate(_ dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-
-        if let date = dateFormatter.date(from: dateString) {
-            let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
-            return formattedDate
-        }
-        return nil
-    }
 }

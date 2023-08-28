@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct MovieTabbarView: View {
+
+    private let storageManager = StorageManager()
+    private let network = NetworkManager()
+    @State private var isLoggedIn = false
+
     var body: some View {
         TabView {
             NavigationView {
@@ -31,17 +36,29 @@ struct MovieTabbarView: View {
                 Image(systemName: "3.circle")
                 Text("Aba 3")
             }
-            Text("Quarta Aba")
-                .tabItem {
-                    Image(systemName: "4.circle")
-                    Text("Aba 4")
+            NavigationView {
+                if isLoggedIn {
+                    Text("Logado")
+                } else {
+                    MovieLoginView()
                 }
+            }
+            .tabItem {
+                Image(systemName: "4.circle")
+                Text("Aba 4")
+            }
         }
-    }
-}
+        .onAppear {
+            network.fetchAccessToken(requestToken: storageManager.getResquetToken() ?? "") { response in
+                if response.success {
+                    storageManager.setAccessToken(accessToken: response.accessToken)
+                    isLoggedIn = true
+                } else {
+                    storageManager.setAccessToken(accessToken: nil)
+                    isLoggedIn = false
+                }
 
-struct MovieTabbarView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieTabbarView()
+            }
+        }
     }
 }

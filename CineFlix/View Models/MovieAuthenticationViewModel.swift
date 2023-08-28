@@ -26,9 +26,9 @@ class MovieAuthenticationViewModel: ObservableObject {
     }
     
     func fetchAccessToken(_ token: String) {
-        networkManager.fetchAccessToken(requestToken: token) { response in
+        networkManager.fetchAccessToken(requestToken: token) { [weak self] response in
             DispatchQueue.main.async {
-                self.storageManager.setAccessToken(accessToken: response.accessToken)
+                self?.storageManager.setAccessToken(accessToken: response.accessToken)
                 AuthenticationManager.shared.refresh()
             }
         }
@@ -36,7 +36,8 @@ class MovieAuthenticationViewModel: ObservableObject {
 
     func handleLoginButtonTap(openURL: @escaping (URL) -> Void) {
         if requestToken.isEmpty {
-            fetchRequestToken { success in
+            fetchRequestToken { [weak self] success in
+                guard let self else { return }
                 if success, let url = URL(string: "https://www.themoviedb.org/auth/access?request_token=\(self.requestToken)") {
                     openURL(url)
                 } else {
@@ -44,7 +45,7 @@ class MovieAuthenticationViewModel: ObservableObject {
                 }
             }
         } else {
-            print("Request token already available: \(requestToken)")
+            print("Request token already available: \(self.requestToken)")
         }
     }
 

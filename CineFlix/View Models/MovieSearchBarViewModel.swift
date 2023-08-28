@@ -28,7 +28,8 @@ class MovieSearchBarViewModel: ObservableObject {
     }
 
     private func search(_ query: String, _ currentPage: Int) {
-        networkManager.fetchSearchResults(query: query, page: currentPage) { response in
+        networkManager.fetchSearchResults(query: query, page: currentPage) { [weak self] response in
+            guard let self else { return }
             self.allSearchMovies.append(contentsOf: response.results)
         }
     }

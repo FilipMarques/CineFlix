@@ -65,7 +65,7 @@ struct MovieSearchBarView: View {
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
 
-                                    Text("Data de Estreia: \(movie.releaseDate)")
+                                    Text("Data de Estreia: \(movie.releaseDate?.formatDate() ?? "")")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
                                 }
