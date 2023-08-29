@@ -11,6 +11,7 @@ struct MovieTabbarView: View {
 
     private let storageManager = StorageManager()
     private let network = NetworkManager()
+    @State private var accountId = ""
     @State private var isLoggedIn = false
 
     var body: some View {
@@ -38,9 +39,9 @@ struct MovieTabbarView: View {
             }
             NavigationView {
                 if isLoggedIn {
-                    Text("Logado")
+                    MovieLoggedView(accountId: accountId, isLoggedInBinding: $isLoggedIn)
                 } else {
-                    MovieLoginView()
+                    MovieLoginView(isLoggedInBinding: $isLoggedIn)
                 }
             }
             .tabItem {
@@ -52,7 +53,9 @@ struct MovieTabbarView: View {
             network.fetchAccessToken(requestToken: storageManager.getResquetToken() ?? "") { response in
                 if response.success {
                     storageManager.setAccessToken(accessToken: response.accessToken)
+                    accountId = response.accountId
                     isLoggedIn = true
+                    print("\(response)")
                 } else {
                     storageManager.setAccessToken(accessToken: nil)
                     isLoggedIn = false

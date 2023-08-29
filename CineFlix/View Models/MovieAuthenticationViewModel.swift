@@ -10,6 +10,8 @@ import Foundation
 class MovieAuthenticationViewModel: ObservableObject {
 
     @Published var requestToken: String = ""
+    @Published var isShowingWebView = false
+    @Published var isLoggedIn = false
 
     private var networkManager = NetworkManager()
     private let storageManager = StorageManager()

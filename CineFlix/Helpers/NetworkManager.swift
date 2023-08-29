@@ -72,6 +72,7 @@ class NetworkManager {
                        guard let self = self else { return }
                        switch response.result {
                        case .success(let accessTokenResponse):
+
                            print("\(accessTokenResponse)")
                            completion(accessTokenResponse)
                            self.fetchSessionIdV3(accessToken: accessTokenResponse.accessToken)
@@ -186,5 +187,55 @@ class NetworkManager {
             }
     }
 
+    func fetchUserProfile(_ accountId: String, completion: ((UserProfile) -> ())?) {
+
+        let endpoint = "/account/\(accountId)"
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, headers: headers)
+            .validate()
+            .responseDecodable(of: UserProfile.self) { response in
+                switch response.result {
+                case .success(let userProfile):
+                    completion?(userProfile)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+
+    }
+
+    func fetchLogoutRequest(accessToken: String) {
+
+        let endpoint = "/auth/access_token"
+
+        let parameters: [String: Any] = [
+            "access_token": accessToken
+        ]
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        AF.request(APIConstants.baseUrlV4 + endpoint, method: .delete, parameters: parameters, headers: headers)
+            .validate()
+            .responseDecodable(of: LogoutResponse.self) { response in
+                switch response.result {
+                case .success(_):
+                    print("deu bom")
+                case .failure(let error):
+                    print("\(error)")
+                }
+            }
+
+        
+    }
+
 }
 
+//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZGIwMmZjNzUyNDc1MjhlYjlkMmU0Y2NjN2RhNTkzZCIsImp0aSI6IjY3MDAyMzYiLCJzY29wZXMiOlsiYXBpX3JlYWQiLCJhcGlfd3JpdGUiXSwidmVyc2lvbiI6MSwic3ViIjoiNjQyYjI3NzViZjMxZjIwMGYyZTliYzE5IiwibmJmIjoxNjkzMzMwNDU0fQ.ABsEqCDkQ7DgPUnRZxBUJvvB8gs1xDkenbD7LkCvHPM

@@ -13,6 +13,7 @@ struct MovieLoginView: View {
     @State private var isShowingWebView = false
     @StateObject private var viewModel = MovieAuthenticationViewModel()
     @Environment(\.openURL) var openURL
+    @Binding var isLoggedInBinding: Bool
 
     var body: some View {
         ZStack {
@@ -52,6 +53,7 @@ struct MovieLoginView: View {
         }
         .onOpenURL { url in
             viewModel.fetchAccessToken(viewModel.requestToken)
+            isLoggedInBinding = true
         }
     }
 
