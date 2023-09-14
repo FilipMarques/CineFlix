@@ -69,13 +69,11 @@ class NetworkManager {
         }
                    .validate()
                    .responseDecodable(of: AccessTokenResponse.self) { [weak self] response in
-                       guard let self = self else { return }
                        switch response.result {
                        case .success(let accessTokenResponse):
-
                            print("\(accessTokenResponse)")
                            completion(accessTokenResponse)
-                           self.fetchSessionIdV3(accessToken: accessTokenResponse.accessToken)
+                           self?.fetchSessionIdV3(accessToken: accessTokenResponse.accessToken)
                        case .failure(let error):
                            print(error)
                        }
@@ -237,5 +235,3 @@ class NetworkManager {
     }
 
 }
-
-//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZGIwMmZjNzUyNDc1MjhlYjlkMmU0Y2NjN2RhNTkzZCIsImp0aSI6IjY3MDAyMzYiLCJzY29wZXMiOlsiYXBpX3JlYWQiLCJhcGlfd3JpdGUiXSwidmVyc2lvbiI6MSwic3ViIjoiNjQyYjI3NzViZjMxZjIwMGYyZTliYzE5IiwibmJmIjoxNjkzMzMwNDU0fQ.ABsEqCDkQ7DgPUnRZxBUJvvB8gs1xDkenbD7LkCvHPM

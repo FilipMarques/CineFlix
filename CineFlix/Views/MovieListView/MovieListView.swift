@@ -11,6 +11,8 @@ struct MovieListView: View {
 
     @StateObject private var viewModel = MovieListViewModel()
 
+    // arrumar layout
+
     var body: some View {
 
         List(viewModel.allMovies) { movie in

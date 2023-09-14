@@ -11,8 +11,43 @@ struct MovieTabbarView: View {
 
     private let storageManager = StorageManager()
     private let network = NetworkManager()
-    @State private var accountId = ""
+    @State private var accountId: String? // deixar opcional fazer a condição isLoggedIn por if let
     @State private var isLoggedIn = false
+
+    func teste(completion: @escaping (Bool) -> (Void)) {
+        if let requestToken = storageManager.getResquetToken() {
+            network.fetchAccessToken(requestToken: requestToken) { response in
+                if response.success {
+                    storageManager.setAccessToken(accessToken: response.accessToken)
+                    self.accountId = response.accountId
+                    isLoggedIn = true
+                    print("\(response)")
+                    completion(true)
+                } else {
+                    storageManager.setAccessToken(accessToken: nil)
+                    isLoggedIn = false
+                }
+
+            }
+        } else {
+            network.fetchRequestToken { response in
+                if response.success {
+                    network.fetchAccessToken(requestToken: response.requestToken) { response in
+                        if response.success {
+                            storageManager.setAccessToken(accessToken: response.accessToken)
+                            self.accountId = response.accountId
+                            self.isLoggedIn = true
+                            print("\(response)")
+                        } else {
+                            storageManager.setAccessToken(accessToken: nil)
+                            isLoggedIn = false
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 
     var body: some View {
         TabView {
@@ -39,7 +74,7 @@ struct MovieTabbarView: View {
             }
             NavigationView {
                 if isLoggedIn {
-                    MovieLoggedView(accountId: accountId, isLoggedInBinding: $isLoggedIn)
+                    MovieLoggedView(accountId: storageManager.getAccountId() ?? "", isLoggedInBinding: $isLoggedIn)
                 } else {
                     MovieLoginView(isLoggedInBinding: $isLoggedIn)
                 }
@@ -49,19 +84,16 @@ struct MovieTabbarView: View {
                 Text("Aba 4")
             }
         }
+        .onChange(of: accountId) { newValue in
+            print("2")
+        }
         .onAppear {
-            network.fetchAccessToken(requestToken: storageManager.getResquetToken() ?? "") { response in
-                if response.success {
-                    storageManager.setAccessToken(accessToken: response.accessToken)
-                    accountId = response.accountId
-                    isLoggedIn = true
-                    print("\(response)")
-                } else {
-                    storageManager.setAccessToken(accessToken: nil)
-                    isLoggedIn = false
-                }
+            print("eu")
 
-            }
         }
     }
 }
+
+//        .onChange(of: <#T##Equatable#>, perform: <#T##(Equatable) -> Void##(Equatable) -> Void##(_ newValue: Equatable) -> Void#>) // status do @state
+
+

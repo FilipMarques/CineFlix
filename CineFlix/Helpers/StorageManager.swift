@@ -24,4 +24,16 @@ class StorageManager {
         }
 
     }
+
+    func getAccountId() -> String? {
+        return keychain.get("account_id")
+    }
+
+    func setAccountId(accountId: String?) {
+        if let accountId {
+            keychain.set(accountId, forKey: "account_id")
+        } else {
+            keychain.delete("account_id")
+        }
+    }
 }

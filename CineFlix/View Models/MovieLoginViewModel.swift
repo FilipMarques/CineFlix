@@ -7,11 +7,12 @@
 
 import Foundation
 
-class MovieAuthenticationViewModel: ObservableObject {
+class MovieLoginViewModel: ObservableObject {
 
     @Published var requestToken: String = ""
     @Published var isShowingWebView = false
     @Published var isLoggedIn = false
+    @Published var accountId = ""
 
     private var networkManager = NetworkManager()
     private let storageManager = StorageManager()
@@ -31,7 +32,7 @@ class MovieAuthenticationViewModel: ObservableObject {
         networkManager.fetchAccessToken(requestToken: token) { [weak self] response in
             DispatchQueue.main.async {
                 self?.storageManager.setAccessToken(accessToken: response.accessToken)
-                AuthenticationManager.shared.refresh()
+                self?.storageManager.setAccountId(accountId: response.accountId)
             }
         }
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieWelcomeView: View {
-    @StateObject private var viewModel = MovieAuthenticationViewModel()
+    @StateObject private var viewModel = MovieLoginViewModel()
     @Environment(\.openURL) var openURL
 
     var body: some View {

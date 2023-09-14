@@ -11,13 +11,16 @@ import SwiftUI
 
 struct MovieLoginView: View {
     @State private var isShowingWebView = false
-    @StateObject private var viewModel = MovieAuthenticationViewModel()
+    @StateObject private var viewModel = MovieLoginViewModel()
     @Environment(\.openURL) var openURL
     @Binding var isLoggedInBinding: Bool
 
     var body: some View {
         ZStack {
-            // Perguntar como adiciona imagem de fundo sem afetar a tabbar
+            Image("Movie")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.top)
             VStack {
                 Text("Login")
                     .font(.largeTitle)
