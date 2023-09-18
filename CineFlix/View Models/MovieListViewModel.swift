@@ -29,7 +29,7 @@ class MovieListViewModel: ObservableObject {
     }
 
     private func fetchData(_ currentPage: Int) {
-        networkManager.fetchData(page: currentPage) { [weak self] fetchedMovies in
+        networkManager.fetchDataMoviesDetails(page: currentPage) { [weak self] fetchedMovies in
             self?.allMovies.append(contentsOf: fetchedMovies)
             self?.currentPage += 1
         }

@@ -55,8 +55,9 @@ struct MovieLoginView: View {
             }
         }
         .onOpenURL { url in
-            viewModel.fetchAccessToken(viewModel.requestToken)
-            isLoggedInBinding = true
+            viewModel.fetchAccessToken(viewModel.requestToken, completionHandler: {
+                isLoggedInBinding = true
+            })
         }
     }
 

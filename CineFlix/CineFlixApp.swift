@@ -16,11 +16,6 @@ struct CineFlixApp: App {
 
     private var networkManager = NetworkManager()
 
-    func checkToken() -> Bool {
-        _ = authenticationSeed
-        return storageManager.getResquetToken() != nil
-    }
-
     var body: some Scene {
         WindowGroup {
             MovieTabbarView()

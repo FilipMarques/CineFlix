@@ -54,7 +54,7 @@ class NetworkManager {
         let endpoint = "/auth/access_token"
 
         let accessTokenRequest = AccessTokenRequest(requestToken: requestToken)
-
+        
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(APIConstants.apiKey)",
             "Content-type": "application/json"
@@ -109,7 +109,7 @@ class NetworkManager {
         }
     }
 
-    func fetchData(page: Int, completion: @escaping ([Movie]) -> Void) {
+    func fetchDataMoviesDetails(page: Int, completion: @escaping ([Movie]) -> Void) {
         let endpoint = "/discover/movie"
         let parameters: [String: Any] = [
             "include_adult": false,
@@ -232,6 +232,35 @@ class NetworkManager {
             }
 
         
+    }
+
+    func fetchFavoritesMovies(accountId: String, page: Int, completion: @escaping (Result<MovieFavoritesResponse, Error>) -> ()) {
+
+        let endpoint = "/account/\(accountId)/favorite/movies"
+
+        let parameters: [String: Any] = [
+            "language": "pt-BR",
+            "page": page
+        ]
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
+            .validate()
+            .responseDecodable(of: MovieFavoritesResponse.self) { response in
+                switch response.result {
+                case .success(let response):
+                    print("\(response)")
+                    completion(.success(response))
+                case .failure(let error):
+                    completion(.failure(error))
+                    print("\(error)")
+                }
+            }
+
     }
 
 }

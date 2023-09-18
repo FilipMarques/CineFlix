@@ -26,6 +26,8 @@ class MovieLoggedViewModel: ObservableObject {
     }
 
     func fetch() {
-        networkManager.fetchLogoutRequest(accessToken: storageManager.getResquetToken() ?? "")
+        networkManager.fetchLogoutRequest(accessToken: storageManager.getAccessToken() ?? "")
+        storageManager.setAccessToken(accessToken: nil)
+        storageManager.setAccountId(accountId: nil)
     }
 }

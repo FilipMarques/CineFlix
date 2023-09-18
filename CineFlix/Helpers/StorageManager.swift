@@ -12,7 +12,7 @@ class StorageManager {
 
     let keychain = KeychainSwift()
 
-    func getResquetToken() -> String? {
+    func getAccessToken() -> String? {
         return keychain.get("access_token")
     }
 

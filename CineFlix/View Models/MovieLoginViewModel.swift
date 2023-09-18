@@ -28,12 +28,14 @@ class MovieLoginViewModel: ObservableObject {
         }
     }
     
-    func fetchAccessToken(_ token: String) {
+    func fetchAccessToken(_ token: String, completionHandler: @escaping () -> Void) {
         networkManager.fetchAccessToken(requestToken: token) { [weak self] response in
             DispatchQueue.main.async {
                 self?.storageManager.setAccessToken(accessToken: response.accessToken)
                 self?.storageManager.setAccountId(accountId: response.accountId)
+                completionHandler()
             }
+
         }
     }
 

@@ -14,17 +14,60 @@ struct MovieTabbarView: View {
     @State private var accountId: String? // deixar opcional fazer a condição isLoggedIn por if let
     @State private var isLoggedIn = false
 
-    func teste(completion: @escaping (Bool) -> (Void)) {
-        if let requestToken = storageManager.getResquetToken() {
+    var body: some View {
+        TabView {
+            NavigationView {
+                MovieListView()
+            }
+            .tabItem {
+                Image(systemName: "house.fill")
+                Text("Aba 1")
+            }
+
+            NavigationView {
+                MovieFavoriteView(accountId: storageManager.getAccountId() ?? "")
+            }
+            .tabItem {
+                Image(systemName: "star.fill")
+                Text("Aba 2")
+            }
+
+            NavigationView {
+                MovieSearchBarView()
+            }
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("Aba 3")
+            }
+            
+            NavigationView {
+                if isLoggedIn {
+                    MovieLoggedView(accountId: storageManager.getAccountId() ?? "", isLoggedInBinding: $isLoggedIn)
+                } else {
+                    MovieLoginView(isLoggedInBinding: $isLoggedIn)
+                }
+            }
+            .tabItem {
+                Image(systemName: "person.circle.fill")
+                Text("Aba 4")
+            }
+        }
+        .onAppear {
+            handleAuthentication()
+        }
+    }
+
+    func handleAuthentication() {
+        if let requestToken = storageManager.getAccessToken() {
             network.fetchAccessToken(requestToken: requestToken) { response in
                 if response.success {
                     storageManager.setAccessToken(accessToken: response.accessToken)
-                    self.accountId = response.accountId
+                    storageManager.setAccountId(accountId: response.accountId)
                     isLoggedIn = true
                     print("\(response)")
-                    completion(true)
                 } else {
                     storageManager.setAccessToken(accessToken: nil)
+                    storageManager.setAccountId(accountId: nil)
                     isLoggedIn = false
                 }
 
@@ -35,11 +78,12 @@ struct MovieTabbarView: View {
                     network.fetchAccessToken(requestToken: response.requestToken) { response in
                         if response.success {
                             storageManager.setAccessToken(accessToken: response.accessToken)
-                            self.accountId = response.accountId
+                            storageManager.setAccountId(accountId: response.accountId)
                             self.isLoggedIn = true
                             print("\(response)")
                         } else {
                             storageManager.setAccessToken(accessToken: nil)
+                            storageManager.setAccountId(accountId: nil)
                             isLoggedIn = false
                         }
 
@@ -48,52 +92,6 @@ struct MovieTabbarView: View {
             }
         }
     }
-
-    var body: some View {
-        TabView {
-            NavigationView {
-                MovieListView()
-            }
-            .tabItem {
-                Image(systemName: "1.circle")
-                Text("Aba 1")
-            }
-
-            Text("Segunda Aba")
-                .tabItem {
-                    Image(systemName: "2.circle")
-                    Text("Aba 2")
-                }
-
-            NavigationView {
-                MovieSearchBarView()
-            }
-            .tabItem {
-                Image(systemName: "3.circle")
-                Text("Aba 3")
-            }
-            NavigationView {
-                if isLoggedIn {
-                    MovieLoggedView(accountId: storageManager.getAccountId() ?? "", isLoggedInBinding: $isLoggedIn)
-                } else {
-                    MovieLoginView(isLoggedInBinding: $isLoggedIn)
-                }
-            }
-            .tabItem {
-                Image(systemName: "4.circle")
-                Text("Aba 4")
-            }
-        }
-        .onChange(of: accountId) { newValue in
-            print("2")
-        }
-        .onAppear {
-            print("eu")
-
-        }
-    }
 }
-
-//        .onChange(of: <#T##Equatable#>, perform: <#T##(Equatable) -> Void##(Equatable) -> Void##(_ newValue: Equatable) -> Void#>) // status do @state
 
 
