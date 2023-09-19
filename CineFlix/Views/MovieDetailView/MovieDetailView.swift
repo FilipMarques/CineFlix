@@ -47,9 +47,40 @@ struct MovieDetailView: View {
             .padding()
             .navigationBarTitle("Informações do Filme", displayMode: .inline)
         }
-        .onAppear {
-            viewModel.overview
-        }
     }
 
+}
+
+struct PercentageCircle: View {
+    @State var percentage: CGFloat
+
+    var body: some View {
+        VStack {
+            Text("\(Int(percentage * 100))%")
+
+            ZStack {
+                Circle()
+                    .stroke(lineWidth: 2.5)
+                    .opacity(0.3)
+                    .foregroundColor(Color.gray)
+
+                Circle()
+                    .trim(from: 0, to: percentage)
+                    .stroke(style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+                    .foregroundColor(Color.blue)
+                    .rotationEffect(Angle(degrees: -95))
+                    .animation(.easeInOut(duration: 1.0))
+            }
+            .frame(width: 25, height: 25)
+
+            Button(action: {
+                withAnimation {
+                    self.percentage = CGFloat.random(in: 0.0...1.0)
+                }
+            }) {
+                Text("Animate")
+            }
+        }
+        .padding()
+    }
 }

@@ -11,6 +11,9 @@ import URLImage
 struct MovieRow: View {
     let movie: Movie
 
+    @ObservedObject var viewModel: MovieListViewModel
+    @State private var isFavorited = false
+
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             URLImage(URL(string: "https://image.tmdb.org/t/p/w500/\(movie.backdropPath)")!) { image in
@@ -32,8 +35,9 @@ struct MovieRow: View {
                     .shadow(color: Color.black.opacity(0.7), radius: 1, x: 0, y: 1)
 
                 HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
+                    FavoriteStar(isFavorited: $isFavorited) {
+                        viewModel.addFavoriteMovie(mediaId: movie.id, isFavorite: isFavorited)
+                    }
                     Text(String(format: "%.2f", movie.voteAverage))
                         .foregroundColor(.white)
                         .font(.subheadline)
@@ -44,6 +48,20 @@ struct MovieRow: View {
         }
         .shadow(radius: 5)
         .frame(height: 200)
+    }
+}
+
+struct FavoriteStar: View {
+    @Binding var isFavorited: Bool
+    var onToggle: () -> Void
+
+    var body: some View {
+        Image(systemName: isFavorited ? "star.fill" : "star")
+            .foregroundColor(isFavorited ? .yellow : .gray)
+            .onTapGesture {
+                onToggle()
+                isFavorited.toggle()
+            }
     }
 }
 

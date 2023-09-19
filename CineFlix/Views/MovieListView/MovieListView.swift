@@ -19,7 +19,7 @@ struct MovieListView: View {
             NavigationLink(destination: MovieDetailView(overview: movie.overview,
                                                         posterPath: movie.posterPath,
                                                         releaseDate: movie.releaseDate)) {
-                MovieRow(movie: movie)
+                MovieRow(movie: movie, viewModel: viewModel)
                     .onAppear {
                         viewModel.itemDidAppear(movie)
                     }

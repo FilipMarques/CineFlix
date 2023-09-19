@@ -263,4 +263,35 @@ class NetworkManager {
 
     }
 
+    func favoriteMovie(accountId: String, mediaId: Int, isFavorite: Bool, completion: @escaping (Result<Void, Error>) -> ()) {
+
+        let endpoint = "/account/\(accountId)/favorite"
+
+        let parameters = FavoriteMovieRequest(media_type: "movie", media_id: mediaId, favorite: true)
+
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(APIConstants.apiKey)",
+            "Content-type": "application/json"
+        ]
+
+        AF.request(APIConstants.baseUrlV3 + endpoint, method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers){ request in
+            request.httpBody = try? JSONEncoder().encode(parameters)
+        }
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success:
+                    completion(.success(()))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
+}
+
+struct FavoriteMovieRequest: Encodable {
+    let media_type: String
+    let media_id: Int
+    let favorite: Bool
 }

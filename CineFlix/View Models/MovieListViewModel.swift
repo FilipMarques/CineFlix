@@ -14,6 +14,7 @@ class MovieListViewModel: ObservableObject {
     private var isFirstTime = true
 
     private var networkManager = NetworkManager()
+    private var storageManager = StorageManager()
 
     func loadData() {
         if self.isFirstTime {
@@ -25,6 +26,17 @@ class MovieListViewModel: ObservableObject {
     func itemDidAppear(_ movie: Movie) {
         if movie.title == allMovies.last?.title {
             fetchData(currentPage)
+        }
+    }
+
+    func addFavoriteMovie(mediaId: Int, isFavorite: Bool) {
+        networkManager.favoriteMovie(accountId: storageManager.getAccountId() ?? "", mediaId: mediaId, isFavorite: isFavorite) { result in
+            switch result {
+            case .success(()):
+                print("deu bom")
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 
