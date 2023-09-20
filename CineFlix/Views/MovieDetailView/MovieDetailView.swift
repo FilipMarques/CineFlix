@@ -48,7 +48,6 @@ struct MovieDetailView: View {
             .navigationBarTitle("Informações do Filme", displayMode: .inline)
         }
     }
-
 }
 
 struct PercentageCircle: View {

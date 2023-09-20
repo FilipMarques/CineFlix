@@ -36,7 +36,7 @@ struct MovieRow: View {
 
                 HStack {
                     FavoriteStar(isFavorited: $isFavorited) {
-                        viewModel.addFavoriteMovie(mediaId: movie.id, isFavorite: isFavorited)
+                        viewModel.addFavoriteMovie(mediaId: movie.id, isFavorite: !isFavorited)
                     }
                     Text(String(format: "%.2f", movie.voteAverage))
                         .foregroundColor(.white)

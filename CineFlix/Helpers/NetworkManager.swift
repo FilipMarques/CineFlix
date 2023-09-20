@@ -120,7 +120,9 @@ class NetworkManager {
             "api_key": APIConstants.apiKey
         ]
 
-        AF.request(APIConstants.baseUrlV3 + endpoint, parameters: parameters, headers: HTTPHeaders(["Authorization": "Bearer \(APIConstants.apiKey)"]))
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   parameters: parameters,
+                   headers: HTTPHeaders(["Authorization": "Bearer \(APIConstants.apiKey)"]))
             .validate()
             .responseDecodable(of: PageList<Movie>.self) { response in
                 switch response.result {
@@ -147,7 +149,10 @@ class NetworkManager {
             "page": page
         ]
 
-        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   method: .get,
+                   parameters: parameters,
+                   headers: headers)
             .validate()
             .responseDecodable(of: SearchCollection.self,
                                decoder: JSONDecoder.default) { response in
@@ -173,7 +178,10 @@ class NetworkManager {
             "language": "pt-BR",
         ]
 
-        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   method: .get,
+                   parameters: parameters,
+                   headers: headers)
             .validate()
             .responseDecodable(of: MovieDetailsResponse.self) { response in
                 switch response.result {
@@ -194,7 +202,9 @@ class NetworkManager {
             "Content-type": "application/json"
         ]
 
-        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, headers: headers)
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   method: .get,
+                   headers: headers)
             .validate()
             .responseDecodable(of: UserProfile.self) { response in
                 switch response.result {
@@ -220,7 +230,10 @@ class NetworkManager {
             "Content-type": "application/json"
         ]
 
-        AF.request(APIConstants.baseUrlV4 + endpoint, method: .delete, parameters: parameters, headers: headers)
+        AF.request(APIConstants.baseUrlV4 + endpoint,
+                   method: .delete,
+                   parameters: parameters,
+                   headers: headers)
             .validate()
             .responseDecodable(of: LogoutResponse.self) { response in
                 switch response.result {
@@ -248,7 +261,10 @@ class NetworkManager {
             "Content-type": "application/json"
         ]
 
-        AF.request(APIConstants.baseUrlV3 + endpoint, method: .get, parameters: parameters, headers: headers)
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   method: .get,
+                   parameters: parameters,
+                   headers: headers)
             .validate()
             .responseDecodable(of: MovieFavoritesResponse.self) { response in
                 switch response.result {
@@ -267,14 +283,18 @@ class NetworkManager {
 
         let endpoint = "/account/\(accountId)/favorite"
 
-        let parameters = FavoriteMovieRequest(media_type: "movie", media_id: mediaId, favorite: true)
+        let parameters = FavoriteMovieRequest(mediaType: "movie", mediaId: mediaId, favorite: isFavorite)
 
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(APIConstants.apiKey)",
             "Content-type": "application/json"
         ]
 
-        AF.request(APIConstants.baseUrlV3 + endpoint, method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers){ request in
+        AF.request(APIConstants.baseUrlV3 + endpoint,
+                   method: .post,
+                   parameters: parameters,
+                   encoder: JSONParameterEncoder.default,
+                   headers: headers) { request in
             request.httpBody = try? JSONEncoder().encode(parameters)
         }
             .validate()
@@ -288,10 +308,4 @@ class NetworkManager {
             }
     }
 
-}
-
-struct FavoriteMovieRequest: Encodable {
-    let media_type: String
-    let media_id: Int
-    let favorite: Bool
 }
